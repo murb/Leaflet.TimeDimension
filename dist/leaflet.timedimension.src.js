@@ -1,5 +1,5 @@
 /* 
- * Leaflet TimeDimension v1.0.7 - 2017-10-10 
+ * Leaflet TimeDimension v1.0.7 - 2017-10-11 
  * 
  * Copyright 2017 Biel Frontera (ICTS SOCIB) 
  * datacenter@socib.es 
@@ -24,7 +24,7 @@
 
 L.TimeDimension = (L.Layer || L.Class).extend({
 
-    includes: L.Mixin.Events,
+    includes: (L.Evented || L.Mixin.Events),
 
     initialize: function (options) {
         L.setOptions(this, options);
@@ -398,14 +398,14 @@ L.timeDimension = function (options) {
 
 L.TimeDimension.Util = {
     getTimeDuration: function(ISODuration) {
-        if (nezasa === undefined) {
+        if (typeof nezasa === 'undefined') {
             throw "iso8601-js-period library is required for Leatlet.TimeDimension: https://github.com/nezasa/iso8601-js-period";
         }
         return nezasa.iso8601.Period.parse(ISODuration, true);
     },
 
     addTimeDuration: function(date, duration, utc) {
-        if (utc === undefined) {
+        if (typeof utc === 'undefined') {
             utc = true;
         }
         if (typeof duration == 'string' || duration instanceof String) {
@@ -533,7 +533,7 @@ L.TimeDimension.Util = {
             var timeValue;
             for (var i=0, l=timeRanges.length; i<l; i++){
                 timeRange = timeRanges[i];
-                if (timeRange.split("/").length == 3) {                
+                if (timeRange.split("/").length == 3) {
                     result = result.concat(this.parseAndExplodeTimeRange(timeRange));
                 } else {
                     timeValue = Date.parse(timeRange);
@@ -600,7 +600,7 @@ L.TimeDimension.Util = {
 
 L.TimeDimension.Layer = (L.Layer || L.Class).extend({
 
-    includes: L.Mixin.Events,
+    includes: (L.Evented || L.Mixin.Events),
     options: {
         opacity: 1,
         zIndex: 1
@@ -1427,7 +1427,7 @@ L.timeDimension.layer.geoJson = function(layer, options) {
 //'use strict';
 L.TimeDimension.Player = (L.Layer || L.Class).extend({
 
-    includes: L.Mixin.Events,
+    includes: (L.Evented || L.Mixin.Events),
     initialize: function(options, timeDimension) {
         L.setOptions(this, options);
         this._timeDimension = timeDimension;

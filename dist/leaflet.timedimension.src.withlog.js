@@ -14,6 +14,21 @@
  * git://github.com/socib/Leaflet.TimeDimension.git 
  * 
  */
+
+(function (factory, window) {
+if (typeof define === 'function' && define.amd) {
+  // define an AMD module that relies on leaflet
+  define(['leaflet'], factory);
+} else if (typeof exports === 'object') {
+  // define a Common JS module that relies on leaflet
+  module.exports = factory(require('leaflet'));
+}
+if (typeof window !== 'undefined' && window.L) {
+  // attach your plugin to the global L variable
+  window.L.TimeDimension = factory(L);
+}
+}(function (L) {
+  // TimeDimension plugin implementation
 /*jshint indent: 4, browser:true*/
 /*global L*/
 /*
@@ -2198,3 +2213,6 @@ L.Map.addInitHook(function() {
 L.control.timeDimension = function(options) {
     return new L.Control.TimeDimension(options);
 };
+  
+  return L.TimeDimension;
+}, window));

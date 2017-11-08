@@ -1,5 +1,5 @@
 /* 
- * Leaflet TimeDimension v1.0.7 - 2017-10-11 
+ * Leaflet TimeDimension v1.1.0 - 2017-11-08 
  * 
  * Copyright 2017 Biel Frontera (ICTS SOCIB) 
  * datacenter@socib.es 
@@ -114,18 +114,18 @@ L.TimeDimension = (L.Layer || L.Class).extend({
         });
         this._loadingTimeIndex = -1;
     },
-
+    
     _checkSyncedLayersReady: function (time) {
         for (var i = 0, len = this._syncedLayers.length; i < len; i++) {
             if (this._syncedLayers[i].isReady) {
                 if (!this._syncedLayers[i].isReady(time)) {
-                    return false;
+					return false;                    
                 }
             }
         }
         return true;
     },
-
+    
     setCurrentTime: function (time) {
         var newIndex = this._seekNearestTimeIndex(time);
         this.setCurrentTimeIndex(newIndex);
@@ -778,6 +778,9 @@ L.TimeDimension.Layer.WMS = L.TimeDimension.Layer.extend({
 
     isReady: function(time) {
         var layer = this._getLayerForTime(time);
+        if (this.options.bounds && this._map)
+            if (!this._map.getBounds().contains(this.options.bounds))
+                return true;
         return layer.isLoaded();
     },
 

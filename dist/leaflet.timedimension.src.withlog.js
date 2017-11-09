@@ -1,5 +1,5 @@
 /* 
- * Leaflet TimeDimension v1.1.0 - 2017-11-08 
+ * Leaflet TimeDimension v1.1.0 - 2017-11-09 
  * 
  * Copyright 2017 Biel Frontera (ICTS SOCIB) 
  * datacenter@socib.es 
@@ -23,7 +23,7 @@ if (typeof define === 'function' && define.amd) {
   // define a Common JS module that relies on leaflet
   module.exports = factory(require('leaflet'));
 }
-if (typeof window !== 'undefined' && window.L) {
+if (typeof window !== 'undefined' && window.L && typeof L !== 'undefined') {
   // attach your plugin to the global L variable
   window.L.TimeDimension = factory(L);
 }

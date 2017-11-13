@@ -23,15 +23,15 @@
     // define a Common JS module that relies on leaflet
     module.exports = factory(require('leaflet'), require('iso8601-js-period'));
   } else if (typeof window !== 'undefined' && window.L && typeof L !== 'undefined') {
-    // get the iso8601 from the expected to be global nezesa scope
-    var iso8601 = nezesa.iso8601;
+    // get the iso8601 from the expected to be global nezasa scope
+    var iso8601 = nezasa.iso8601;
     // attach your plugin to the global L variable
     window.L.TimeDimension = factory(L, iso8601);
   }
   }(function (L, iso8601) {
-    // make sure iso8601 module js period module is available under the nezesa scope
-    if (typeof nezesa === 'undefined') {
-      var nezesa = { iso8601: iso8601 };
+    // make sure iso8601 module js period module is available under the nezasa scope
+    if (typeof nezasa === 'undefined') {
+      var nezasa = { iso8601: iso8601 };
     }
     // TimeDimension plugin implementation
 /*jshint indent: 4, browser:true*/
